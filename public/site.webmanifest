@@ -1,0 +1,14 @@
+{
+  "name": "Kaaन्वी Design Studio",
+  "short_name": "Kaaन्वी",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "theme_color": "#161616",
+  "background_color": "#F8F6F2",
+  "display": "standalone"
+}

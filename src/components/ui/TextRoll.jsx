@@ -18,10 +18,10 @@ export const TextRoll = ({
 
   return (
     <span
-      className={cn('relative inline-flex flex-wrap overflow-hidden align-bottom leading-tight select-none pointer-events-none', className)}
+      className={cn('relative inline-flex flex-nowrap whitespace-nowrap overflow-hidden align-bottom leading-tight select-none pointer-events-none', className)}
     >
       {/* Default Row (rolls up to -100%) */}
-      <span className="inline-flex flex-wrap">
+      <span className="inline-flex flex-nowrap whitespace-nowrap">
         {letters.map((l, i) => {
           const delay = center
             ? STAGGER * Math.abs(i - (letters.length - 1) / 2)
@@ -50,7 +50,7 @@ export const TextRoll = ({
       </span>
 
       {/* Duplicate Row (rolls up from 100% to 0%) */}
-      <span className="absolute inset-0 inline-flex flex-wrap">
+      <span className="absolute inset-0 inline-flex flex-nowrap whitespace-nowrap">
         {letters.map((l, i) => {
           const delay = center
             ? STAGGER * Math.abs(i - (letters.length - 1) / 2)

@@ -38,8 +38,8 @@ export function Footer() {
                   <TextRoll>{SITE_BRAND.fullName}</TextRoll>
                 )}
               </span>
-              <span className="text-[10px] uppercase tracking-[0.3em] text-[#D0C7BC] font-medium mt-1">
-                <TextRoll>{`${SITE_BRAND.category} • ${SITE_BRAND.city}`}</TextRoll>
+              <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-[#D0C7BC] font-medium mt-1.5 block">
+                {`${SITE_BRAND.category} • ${SITE_BRAND.city}`}
               </span>
             </motion.a>
             <p className="text-sm text-white/70 max-w-md font-light leading-relaxed">
@@ -84,7 +84,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 className="text-[#D0C7BC] hover:underline font-normal mt-1 inline-block cursor-pointer"
               >
-                <TextRoll>{`Instagram: ${SITE_BRAND.instagram}`}</TextRoll>
+                {`Instagram: ${SITE_BRAND.instagram}`}
               </motion.a>
             </div>
           </div>
