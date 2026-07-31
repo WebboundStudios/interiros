@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Manrope', system-ui, sans-serif;
+  
+  --color-sand: #F8F6F2;
+  --color-sand-subtle: #EFECE6;
+  --color-obsidian: #161616;
+  --color-charcoal: #1F1F1F;
+  --color-muted: #6F6F6F;
+  --color-bronze: #8C6D46;
+  --color-gold: #B08D57;
+  --color-border-subtle: #E8E2D8;
+}
+
+@layer base {
+  html {
+    font-family: 'Manrope', system-ui, sans-serif;
+    background-color: #F8F6F2;
+    color: #1F1F1F;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+.font-serif {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-sans {
+  font-family: 'Manrope', system-ui, sans-serif;
+}
+
+.font-arya {
+  font-family: 'Arya', 'Rozha One', 'Martel', sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.font-rozha {
+  font-family: 'Rozha One', 'Arya', serif;
+}
+
+.font-martel {
+  font-family: 'Martel', 'Arya', serif;
+}
+
+/* Architectural restrained button */
+.dekora-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 10px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dekora-btn .btn-text-wrapper {
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
+  height: 1.25em;
+  line-height: 1.25em;
+}
+
+.dekora-btn .btn-text-inner {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dekora-btn:hover .btn-text-inner {
+  transform: translateY(-50%);
+}
+
+.dekora-btn .btn-text-item {
+  height: 1.25em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Background expansion layer */
+.dekora-btn .btn-bg-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dekora-btn:hover .btn-bg-fill {
+  transform: scaleY(1);
+}
+
+/* Luxury Editorial Image Filter Treatment */
+.luxury-image-filter {
+  filter: sepia(0.12) contrast(0.96) brightness(0.98);
+}
+
+/* Lenis smooth scrolling rules */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Hide scrollbar for horizontal mobile slider */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Architectural Luxury Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F8F6F2;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C0B7A8;
+  border-radius: 10px;
+  border: 2px solid #F8F6F2;
+  transition: background-color 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8C6D46;
+}
+
+/* Firefox scrollbar styling */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #8C6D46 #F8F6F2;
+}
