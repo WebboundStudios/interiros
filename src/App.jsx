@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { SITE_BRAND } from './constants/data';
 import { useLenis } from './hooks/useLenis';
 import { Hero } from './components/sections/Hero';
 import { About } from './components/sections/About';
@@ -15,6 +16,12 @@ import { Footer } from './components/layout/Footer';
 export default function App() {
   // Initialize Lenis smooth scrolling
   useLenis();
+
+  useEffect(() => {
+    if (SITE_BRAND?.meta?.title) {
+      document.title = SITE_BRAND.meta.title;
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#161616] text-[#1F1F1F] font-sans antialiased">
