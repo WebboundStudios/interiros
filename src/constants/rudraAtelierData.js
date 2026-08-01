@@ -234,7 +234,7 @@ export const TESTIMONIALS_DATA = [
 
 export const CTA_DATA = {
   subtitle: "START YOUR PROJECT",
-  title: "Ready to Create a Space with Character?",
+  title: "Ready to Create a Space with Timeless Character?",
   description: "Collaborate with Rudra Atelier to transform your residential or commercial space into a warm, refined sanctuary.",
   primaryCta: { text: "Book a Consultation", href: "#contact" },
   secondaryCta: { text: "Explore Services", href: "#services" }

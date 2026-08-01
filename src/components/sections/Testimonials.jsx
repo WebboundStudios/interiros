@@ -1,5 +1,6 @@
 import React from 'react';
 import { useGoogleReviews } from '../../hooks/useGoogleReviews';
+import { SITE_BRAND } from '../../constants/data';
 import { SectionTitle } from '../ui/SectionTitle';
 import { motion } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -9,7 +10,7 @@ import 'swiper/css';
 
 // Extract client initials for avatar
 const getInitials = (name) => {
-  if (!name) return 'T';
+  if (!name) return 'K';
   const parts = name.split(' ').filter(Boolean);
   if (parts.length >= 2) return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
   return name.substring(0, 2).toUpperCase();
@@ -26,7 +27,7 @@ export function Testimonials() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 mb-14 md:mb-20">
         <SectionTitle
           subtitle="TESTIMONIALS"
-          title="What our clients say about Interiores By Tania"
+          title={`What our clients say about ${SITE_BRAND.fullName}`}
         />
       </div>
 

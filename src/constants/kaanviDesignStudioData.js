@@ -223,7 +223,7 @@ export const TESTIMONIALS_DATA = [
 
 export const CTA_DATA = {
   subtitle: "START YOUR PROJECT",
-  title: "Ready to Create a Space with Character?",
+  title: "Ready to Create a Space with Timeless Character?",
   description: "Collaborate with Kaaन्वी Design Studio to turn your residential or commercial vision into a refined architectural sanctuary.",
   primaryCta: { text: "Book a Consultation", href: "#contact" },
   secondaryCta: { text: "Explore Services", href: "#services" }
