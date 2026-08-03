@@ -22,13 +22,20 @@ export function WhyChooseUs() {
     <section id="why" className="py-24 md:py-36 bg-[#F8F6F2]">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Header Grid: Subtitle Left, Headline Right */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-14 md:mb-24 items-start">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-14 md:mb-24 items-start"
+        >
           <div className="lg:col-span-3">
             <motion.span
               initial="initial"
               whileHover="hovered"
-              className="text-xs uppercase tracking-[0.35em] text-[#8C6D46] font-semibold block cursor-pointer"
+              className="text-xs uppercase tracking-[0.35em] text-[#8C6D46] font-semibold flex items-center gap-3 cursor-pointer"
             >
+
               <TextRoll>{PILLARS_DATA.subtitle}</TextRoll>
             </motion.span>
           </div>
@@ -37,7 +44,7 @@ export function WhyChooseUs() {
               {PILLARS_DATA.headline}
             </h2>
           </div>
-        </div>
+        </motion.div>
 
         {/* 4-Column Connected Card Strip (Matching Dekora screenshot layout) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-0 items-stretch border-y border-[#E8E2D8]/40 lg:border-none">
@@ -49,11 +56,15 @@ export function WhyChooseUs() {
             return (
               <motion.div
                 key={item.number}
-                initial="initial"
-                whileHover="hovered"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.55, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 onMouseEnter={() => setActiveCard(idx)}
                 onClick={() => setActiveCard(idx)}
-                className={`group relative p-6 sm:p-7 xl:p-8 min-h-[360px] md:min-h-[420px] flex flex-col justify-between transition-all duration-500 overflow-hidden cursor-pointer ${radius} ${bgClass} border border-[#E8E2D8]/60 lg:border-[#E8E2D8]/40`}
+                className={`group relative p-6 sm:p-7 xl:p-8 min-h-[360px] md:min-h-[420px] flex flex-col justify-between transition-all duration-500 overflow-hidden cursor-pointer ${radius} ${bgClass} border border-[#E8E2D8]/60 lg:border-[#E8E2D8]/40 ${
+                  isActive ? 'lg:shadow-[0_30px_65px_-30px_rgba(31,31,31,0.4)] lg:z-10' : ''
+                }`}
               >
                 {/* Background Image Layer (Active or Hovered or Always Active on Mobile) */}
                 <div
@@ -95,13 +106,13 @@ export function WhyChooseUs() {
                   }`}
                 >
                   <h3
-                    className={`font-sans text-xl sm:text-2xl lg:text-[1.3rem] xl:text-2xl font-normal transition-colors duration-300 tracking-wide leading-tight ${
+                    className={`font-sans text-xl sm:text-2xl lg:text-[1.2rem] xl:text-xl font-normal transition-colors duration-300 tracking-wide leading-snug break-words ${
                       isActive
                         ? 'text-white'
                         : 'text-white lg:text-[#1F1F1F] lg:group-hover:text-white'
                     }`}
                   >
-                    <TextRoll>{item.title}</TextRoll>
+                    {item.title}
                   </h3>
 
                   {/* Description Paragraph — Always active on mobile, expanded on hover for desktop */}
@@ -123,6 +134,13 @@ export function WhyChooseUs() {
                     </p>
                   </div>
                 </div>
+
+                {/* Active-state accent line, reinforces which pillar is in focus */}
+                <span
+                  className={`absolute bottom-0 left-0 right-0 h-[3px] bg-[#8C6D46] origin-left transition-transform duration-500 z-10 ${
+                    isActive ? 'scale-x-100' : 'scale-x-0'
+                  }`}
+                />
               </motion.div>
             );
           })}

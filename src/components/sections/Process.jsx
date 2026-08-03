@@ -4,16 +4,22 @@ import { motion } from 'framer-motion';
 
 export function Process() {
   return (
-    <section id="process" className="py-24 md:py-36 bg-[#161616] text-white relative overflow-hidden">
+    <section id="process" className="bg-grain py-24 md:py-36 bg-[#161616] text-white relative overflow-hidden">
       {/* Background Subtle Ambient Glow */}
       <div className="pointer-events-none absolute top-1/4 -left-32 w-96 h-96 bg-[#8C6D46]/15 rounded-full blur-[120px]" />
       <div className="pointer-events-none absolute bottom-1/4 -right-32 w-96 h-96 bg-[#8C6D46]/10 rounded-full blur-[120px]" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         {/* Section Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 md:mb-24 items-end">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 md:mb-24 items-end"
+        >
           <div className="lg:col-span-4">
-            <span className="text-xs uppercase tracking-[0.35em] text-[#D0C7BC] font-semibold block mb-3">
+            <span className="text-xs uppercase tracking-[0.35em] text-[#D0C7BC] font-semibold flex items-center gap-3 mb-3">
               {PROCESS_DATA.subtitle || 'WORKING PROCESS'}
             </span>
             <h2 className="font-sans text-3xl sm:text-5xl md:text-6xl font-normal leading-[1.08] text-white">
@@ -25,18 +31,22 @@ export function Process() {
               From initial conceptualization to white-glove turnkey completion, our 4-step architectural methodology ensures total clarity, spatial efficiency, and flawless execution.
             </p>
           </div>
-        </div>
+        </motion.div>
 
         {/* 4-Step Method Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+        <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+          {/* Connective flow line, desktop only — reinforces this is a sequence */}
+          <div className="hidden lg:block absolute top-[4.7rem] left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-transparent via-[#8C6D46]/40 to-transparent" />
+
           {PROCESS_DATA.steps.map((step, idx) => (
             <motion.div
               key={step.number}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative p-8 md:p-10 rounded-3xl bg-[#22201E]/70 backdrop-blur-md border border-white/10 hover:border-[#8C6D46] flex flex-col justify-between min-h-[340px] md:min-h-[380px] transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)] cursor-pointer overflow-hidden"
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.6, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -6 }}
+              className="group relative p-8 md:p-10 rounded-3xl bg-[#22201E]/70 backdrop-blur-md border border-white/10 hover:border-[#8C6D46] flex flex-col justify-between min-h-[340px] md:min-h-[380px] transition-[border-color,box-shadow] duration-500 hover:shadow-[0_25px_60px_-20px_rgba(140,109,70,0.35)] cursor-pointer overflow-hidden"
             >
               {/* Card Corner Subtle Accent */}
               <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-white/5 to-transparent rounded-tr-3xl pointer-events-none" />
@@ -46,7 +56,7 @@ export function Process() {
                 <span className="font-serif text-6xl md:text-7xl font-light text-[#D0C7BC] group-hover:text-white transition-colors duration-400 leading-none">
                   {step.number}
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.2em] font-semibold px-3 py-1 rounded-full bg-white/10 text-white/80 border border-white/15">
+                <span className="text-[10px] uppercase tracking-[0.2em] font-semibold px-3 py-1 rounded-full bg-white/10 text-white/80 border border-white/15 group-hover:border-[#8C6D46]/60 group-hover:bg-[#8C6D46]/20 transition-colors duration-400">
                   Phase {step.number}
                 </span>
               </div>
@@ -63,7 +73,14 @@ export function Process() {
 
               {/* Bottom Interactive Progress Bar Line */}
               <div className="w-full h-0.5 bg-white/10 mt-8 relative overflow-hidden rounded-full">
-                <div className="w-0 group-hover:w-full h-full bg-[#8C6D46] transition-all duration-500 ease-out" />
+                <motion.div
+                  initial={{ width: 0 }}
+                  whileInView={{ width: '100%' }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.9, delay: 0.3 + idx * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                  className="h-full bg-white/15 absolute inset-0"
+                />
+                <div className="w-0 group-hover:w-full h-full bg-[#8C6D46] transition-all duration-500 ease-out relative" />
               </div>
             </motion.div>
           ))}

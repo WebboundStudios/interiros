@@ -3,7 +3,23 @@ import { HERO_DATA, SITE_BRAND } from '../../constants/data';
 import { Button } from '../ui/Button';
 import { TextRoll } from '../ui/TextRoll';
 import { Menu, X } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const heroContainer = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.14, delayChildren: 0.5 },
+  },
+};
+
+const heroItem = {
+  hidden: { opacity: 0, y: 26 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] },
+  },
+};
 
 export function Hero() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -16,9 +32,14 @@ export function Hero() {
   ];
 
   return (
-    <section id="hero" className="fixed top-0 left-0 right-0 h-screen flex items-end pb-20 md:pb-28 overflow-hidden bg-[#161616] text-white z-0">
+    <section id="hero" className="fixed top-0 left-0 right-0 h-screen flex items-end pb-12 sm:pb-16 md:pb-20 overflow-hidden bg-[#161616] text-white z-0">
       {/* Navbar INSIDE Hero Section ONLY */}
-      <header className="absolute top-0 left-0 right-0 z-20 py-6">
+      <motion.header
+        initial={{ opacity: 0, y: -16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute top-0 left-0 right-0 z-20 py-5 md:py-6"
+      >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
           {/* Brand Logo & Full Name */}
           <motion.a
@@ -28,9 +49,9 @@ export function Hero() {
             className="flex items-center gap-3.5 group cursor-pointer"
           >
             <img
-              src={SITE_BRAND.logoImage || "/Kaanvi_logo.png"}
+              src={SITE_BRAND.logoImage || "/Kasa_logo.jpg"}
               alt={SITE_BRAND.fullName}
-              className="h-14 md:h-16 lg:h-20 w-auto object-contain rounded-[10px]"
+              className="h-10 md:h-12 w-auto object-contain rounded-md"
               referrerPolicy="no-referrer"
             />
             <div className="flex flex-col">
@@ -84,58 +105,105 @@ export function Hero() {
         </div>
 
         {/* Mobile Menu Drawer inside Hero */}
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-[#161616]/95 backdrop-blur-md border-b border-white/10 px-6 py-6 flex flex-col gap-4 mt-4 text-white">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-semibold uppercase tracking-wider text-white hover:text-[#B08D57] py-2"
-              >
-                {link.name}
-              </a>
-            ))}
-            <Button variant="white" href="#contact" onClick={() => setMobileMenuOpen(false)} className="w-full mt-2">
-              Consultation
-            </Button>
-          </div>
-        )}
-      </header>
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="md:hidden bg-[#161616]/95 backdrop-blur-md border-b border-white/10 overflow-hidden"
+            >
+              <div className="px-6 py-6 flex flex-col gap-4 mt-4 text-white">
+                {navLinks.map((link, i) => (
+                  <motion.a
+                    key={link.name}
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.35, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-sm font-semibold uppercase tracking-wider text-white hover:text-[#B08D57] py-2"
+                  >
+                    {link.name}
+                  </motion.a>
+                ))}
+                <Button variant="white" href="#contact" onClick={() => setMobileMenuOpen(false)} className="w-full mt-2">
+                  Consultation
+                </Button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.header>
 
-      {/* Fullscreen Background Image with subtle warm overlay */}
-      <div className="absolute inset-0 z-0">
-        <img
+      {/* Fullscreen Background Image with subtle warm overlay + slow Ken Burns drift */}
+      <div className="bg-grain absolute inset-0 z-0">
+        <motion.img
           src={HERO_DATA.bgImage}
           alt={SITE_BRAND.fullName}
-          className="w-full h-full object-cover object-top opacity-90 scale-100 transition-transform duration-1000 luxury-image-filter"
+          className="w-full h-full object-cover object-top opacity-90 luxury-image-filter"
           referrerPolicy="no-referrer"
+          initial={{ scale: 1.12 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 6, ease: [0.16, 1, 0.3, 1] }}
         />
-        <div className="absolute inset-0 bg-black/35" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/20 to-black/35" />
       </div>
 
       {/* Left-Aligned Hero Content Matching Dekora Layout */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full flex flex-col items-start text-left">
+      <motion.div
+        variants={heroContainer}
+        initial="hidden"
+        animate="show"
+        className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full flex flex-col items-start text-left"
+      >
         {/* Editorial Serif Headline */}
-        <h1 className="font-serif text-5xl sm:text-7xl md:text-8xl lg:text-[84px] font-normal leading-[1.05] tracking-tight mb-6 text-white max-w-3xl drop-shadow-sm">
+        <motion.h1
+          variants={heroItem}
+          className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal leading-[1.12] tracking-tight mb-6 text-white max-w-3xl drop-shadow-[0_4px_20px_rgba(0,0,0,0.35)]"
+        >
           {HERO_DATA.title}
-        </h1>
+        </motion.h1>
 
         {/* Supporting Narrative */}
-        <p className="text-sm sm:text-base md:text-lg text-white/90 max-w-xl font-normal leading-relaxed mb-8 drop-shadow-sm">
+        <motion.p
+          variants={heroItem}
+          className="text-sm sm:text-base md:text-lg text-white/90 max-w-xl font-normal leading-relaxed mb-8 drop-shadow-sm"
+        >
           {HERO_DATA.description}
-        </p>
+        </motion.p>
 
         {/* Dual CTAs — Stacked full-width on mobile to prevent horizontal clipping, horizontal on tablet/desktop */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4 w-full sm:w-auto">
-          <Button variant="white" href={HERO_DATA.primaryCta.href} className="w-full sm:w-auto text-center justify-center px-5 sm:px-7">
+        <motion.div
+          variants={heroItem}
+          className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4 w-full sm:w-auto"
+        >
+          <Button variant="white" href={HERO_DATA.primaryCta.href} className="w-full sm:w-auto text-center justify-center px-5 sm:px-7 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)]">
             {HERO_DATA.primaryCta.text}
           </Button>
           <Button variant="transparent-white" href={HERO_DATA.secondaryCta.href} className="w-full sm:w-auto text-center justify-center px-5 sm:px-7">
             {HERO_DATA.secondaryCta.text}
           </Button>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
+
+      {/* Subtle scroll cue */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.4, duration: 0.8 }}
+        className="hidden sm:flex absolute bottom-8 right-6 md:right-12 z-10 flex-col items-center gap-2"
+      >
+        <span className="text-[10px] uppercase tracking-[0.3em] text-white/60 [writing-mode:vertical-rl]">
+          Scroll
+        </span>
+        <motion.span
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+          className="w-px h-10 bg-gradient-to-b from-white/70 to-transparent"
+        />
+      </motion.div>
     </section>
   );
 }

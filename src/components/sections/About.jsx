@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { ABOUT_DATA } from '../../constants/data';
+import { ABOUT_DATA, SITE_BRAND } from '../../constants/data';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 function ScrollWordReveal({ text }) {
@@ -87,7 +87,7 @@ export function About() {
                 style={{ scale: imageScale }}
                 src={ABOUT_DATA.principalImage}
                 alt={ABOUT_DATA.principalName}
-                className="w-full h-full object-cover object-top origin-top luxury-image-filter"
+                className="w-full h-full object-cover object-top origin-center luxury-image-filter"
                 loading="lazy"
                 referrerPolicy="no-referrer"
               />
@@ -174,10 +174,10 @@ export function About() {
 
                 <div>
                   <span className="font-serif text-2xl sm:text-3xl text-[#1F1F1F] font-light block mb-1">
-                    Mumbai, IN
+                    {ABOUT_DATA.locationCity || `${SITE_BRAND.city}, IN`}
                   </span>
                   <span className="text-[11px] uppercase tracking-[0.2em] text-[#6F6F6F] font-medium block">
-                    Bandra Studio
+                    {ABOUT_DATA.studioLocation || `${SITE_BRAND.city} Studio`}
                   </span>
                 </div>
               </div>

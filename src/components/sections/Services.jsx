@@ -43,10 +43,10 @@ export function Services() {
       {/* MOBILE VIEW ONLY (< md) */}
       <section ref={mobileSectionRef} id="services-mobile" className="block md:hidden relative bg-[#F8F6F2] py-4">
         <div className="sticky top-0 z-30 bg-[#F8F6F2] pt-14 pb-4 overflow-hidden border-b border-[#E8E2D8]/50">
-          <div className="w-full pl-6 pr-0 overflow-hidden">
+          <div className="w-full pl-6 overflow-hidden">
             <motion.div
               className="flex items-center gap-2"
-              animate={{ x: `calc(-${mobileActiveIndex * 83}% - ${mobileActiveIndex * 8}px)` }}
+              animate={{ x: `calc(-${mobileActiveIndex * 83}vw - ${mobileActiveIndex * 8}px)` }}
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             >
               {SERVICES_DATA.map((service, idx) => {
@@ -59,8 +59,8 @@ export function Services() {
                       scale: isActive ? 1 : 0.85,
                     }}
                     transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                    className={`shrink-0 w-[83vw] aspect-[4/3] rounded-[10px] overflow-hidden bg-[#EFECE6] border border-[#E8E2D8] cursor-pointer origin-left ${
-                      isActive ? 'ring-1 ring-[#8C6D46]/40' : ''
+                    className={`relative shrink-0 w-[83vw] aspect-[4/3] rounded-[10px] overflow-hidden bg-[#EFECE6] border border-[#E8E2D8] cursor-pointer origin-left transition-shadow duration-500 ${
+                      isActive ? 'ring-1 ring-[#8C6D46]/40 shadow-[0_20px_45px_-25px_rgba(31,31,31,0.4)]' : ''
                     }`}
                   >
                     <img
@@ -70,11 +70,13 @@ export function Services() {
                       loading="lazy"
                       referrerPolicy="no-referrer"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
                   </motion.div>
                 );
               })}
             </motion.div>
           </div>
+
         </div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col gap-12 pt-10 pb-16">
@@ -119,10 +121,10 @@ export function Services() {
                 initial={{ opacity: 0, y: 36 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -36 }}
-                transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                 className="flex flex-col items-start"
               >
-                <span className="text-xs uppercase tracking-[0.3em] text-[#8C6D46] font-semibold mb-3 block">
+                <span className="text-xs uppercase tracking-[0.3em] text-[#8C6D46] font-semibold mb-3 flex items-center gap-3">
                   {desktopService.subtitle || 'OUR SERVICE'}
                 </span>
 
@@ -139,6 +141,17 @@ export function Services() {
                 </Button>
               </motion.div>
             </AnimatePresence>
+
+            {/* Progress indicator, reflects position within the service sequence */}
+            {/* <div className="flex items-center gap-2 mt-12">
+              {SERVICES_DATA.map((service, idx) => (
+                <span
+                  key={service.id}
+                  className="h-[3px] rounded-full bg-[#8C6D46] transition-all duration-500"
+                  style={{ width: idx === desktopActiveIndex ? '32px' : '10px', opacity: idx === desktopActiveIndex ? 1 : 0.25 }}
+                />
+              ))}
+            </div> */}
           </div>
 
           {/* RIGHT — full height image track */}
@@ -158,7 +171,9 @@ export function Services() {
                       scale: isActive ? 1 : 0.85,
                     }}
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="shrink-0 w-[86%] my-12 rounded-[10px] overflow-hidden bg-[#EFECE6] border border-[#E8E2D8] cursor-pointer origin-left"
+                    className={`relative shrink-0 w-[86%] my-12 rounded-[10px] overflow-hidden bg-[#EFECE6] border border-[#E8E2D8] cursor-pointer origin-left transition-shadow duration-500 ${
+                      isActive ? 'shadow-[0_35px_80px_-30px_rgba(31,31,31,0.45)]' : ''
+                    }`}
                   >
                     <img
                       src={service.image}
@@ -167,6 +182,7 @@ export function Services() {
                       loading="lazy"
                       referrerPolicy="no-referrer"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
                   </motion.div>
                 );
               })}

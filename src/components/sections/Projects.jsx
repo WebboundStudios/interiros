@@ -24,13 +24,19 @@ export function Projects() {
           {PROJECTS_DATA.map((project, index) => (
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 50, scale: 0.98 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               style={{ top: `${60 + index * 12}px` }}
-              className="sticky min-h-[75vh] sm:min-h-[80vh] md:min-h-[85vh] flex items-center bg-[#F8F6F2] rounded-[10px] border border-[#E8E2D8] p-6 sm:p-10 md:p-14 transition-all duration-300 shadow-sm"
+              className="sticky min-h-[75vh] sm:min-h-[80vh] md:min-h-[85vh] flex items-center bg-[#F8F6F2] rounded-[10px] border border-[#E8E2D8] p-6 sm:p-10 md:p-14 transition-shadow duration-500 shadow-[0_25px_60px_-30px_rgba(31,31,31,0.35)] hover:shadow-[0_35px_80px_-25px_rgba(31,31,31,0.4)]"
             >
+              {/* Stacking index marker, reinforces order in the curtain-reveal sequence */}
+              <span className="hidden md:flex absolute top-8 right-10 items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-[#8C6D46] font-semibold">
+                <span className="w-6 h-px bg-[#8C6D46]/60" />
+                {String(index + 1).padStart(2, '0')} / {String(PROJECTS_DATA.length).padStart(2, '0')}
+              </span>
+
               <ProjectCard
                 project={project}
                 onOpenModal={(proj) => setActiveModalProject(proj)}

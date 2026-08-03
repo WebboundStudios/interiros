@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useGoogleReviews } from '../../hooks/useGoogleReviews';
 import { SITE_BRAND } from '../../constants/data';
 import { SectionTitle } from '../ui/SectionTitle';
@@ -18,18 +18,25 @@ const getInitials = (name) => {
 
 export function Testimonials() {
   const { reviews } = useGoogleReviews();
+  const [isPaused, setIsPaused] = useState(false);
 
   // Duplicate dataset 3x for seamless infinite marquee loop on desktop
   const marqueeItems = [...reviews, ...reviews, ...reviews];
 
   return (
     <section id="testimonials" className="py-24 md:py-36 bg-[#F8F6F2] overflow-hidden border-t border-[#E8E2D8]">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-14 md:mb-20">
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="max-w-7xl mx-auto px-6 md:px-12 mb-14 md:mb-20"
+      >
         <SectionTitle
           subtitle="TESTIMONIALS"
           title={`What our clients say about ${SITE_BRAND.fullName}`}
         />
-      </div>
+      </motion.div>
 
       {/* MOBILE VIEW — Touch Swiper Carousel (< md) */}
       <div className="block md:hidden px-6">
@@ -47,7 +54,7 @@ export function Testimonials() {
         >
           {reviews.map((t, idx) => (
             <SwiperSlide key={idx}>
-              <div className="p-8 bg-white rounded-[10px] border border-[#E8E2D8] flex flex-col justify-between min-h-[320px] transition-colors duration-300">
+              <div className="p-8 bg-white rounded-[10px] border border-[#E8E2D8] shadow-[0_20px_45px_-30px_rgba(31,31,31,0.3)] flex flex-col justify-between min-h-[320px] transition-colors duration-300">
                 {/* Top Header: Bronze Quote Mark Accent + Rating Badge */}
                 <div className="flex items-center justify-between mb-4">
                   <span className="font-serif text-5xl text-[#8C6D46] leading-none select-none">
@@ -84,20 +91,20 @@ export function Testimonials() {
       </div>
 
       {/* DESKTOP VIEW — Continuous Marquee Stream with Calm Monochrome Editorial Cards (≥ md) */}
-      <div className="hidden md:block relative w-full overflow-hidden py-4">
-        <motion.div
-          animate={{ x: ['0%', '-33.333%'] }}
-          transition={{
-            duration: 42,
-            ease: 'linear',
-            repeat: Infinity,
-          }}
-          className="flex gap-8 w-max px-6 cursor-grab"
+      <div
+        className="hidden md:block relative w-full overflow-hidden py-4"
+        style={{ maskImage: 'linear-gradient(to right, transparent, black 6%, black 94%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 6%, black 94%, transparent)' }}
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
+        <div
+          style={{ animationPlayState: isPaused ? 'paused' : 'running' }}
+          className="animate-marquee flex gap-8 w-max px-6 cursor-grab"
         >
           {marqueeItems.map((t, idx) => (
             <div
               key={idx}
-              className="w-[380px] lg:w-[440px] shrink-0 p-9 md:p-10 bg-white rounded-[10px] border border-[#E8E2D8] flex flex-col justify-between min-h-[330px] transition-all duration-300 hover:border-[#8C6D46]/60 cursor-pointer group"
+              className="w-[380px] lg:w-[440px] shrink-0 p-9 md:p-10 bg-white rounded-[10px] border border-[#E8E2D8] flex flex-col justify-between min-h-[330px] transition-all duration-300 hover:border-[#8C6D46]/60 hover:shadow-[0_25px_55px_-30px_rgba(31,31,31,0.35)] hover:-translate-y-1 cursor-pointer group"
             >
               {/* Top Header: Bronze Quote Mark Accent + Rating Badge */}
               <div className="flex items-center justify-between mb-4">
@@ -130,7 +137,7 @@ export function Testimonials() {
               </div>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
